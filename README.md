@@ -1,1 +1,2 @@
-# MixNMatchStudio-Myntra
+# Mix & Match Studio 
+# Style Showdown
