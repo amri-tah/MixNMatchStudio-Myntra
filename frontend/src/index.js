@@ -16,6 +16,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Navbar />
+      <div className='h-[90vh]'>
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/women" element={<Catalog prod_type={"Women"} />} />
@@ -26,6 +27,7 @@ root.render(
           <Route path="/styleshowdown" element={<StyleShowdown />} />
         </Route>
       </Routes>
+      </div>
       <Footer />
     </BrowserRouter>
   </React.StrictMode>
