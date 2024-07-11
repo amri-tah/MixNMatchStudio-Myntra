@@ -22,13 +22,13 @@ const ProductDetails = () => {
   if (!product) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>Price: {product.price}</p>
-      <p>Category: {product.category}</p>
-      <p>Stock: {product.stock}</p>
-      <p>Tags: {product.tags.join(', ')}</p>
+    <div className="p-10">
+      <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
+      <p className="mb-2">{product.description}</p>
+      <p className="mb-2">Price: {product.price}</p>
+      <p className="mb-2">Category: {product.category}</p>
+      <p className="mb-2">Stock: {product.stock}</p>
+      <p className="mb-2">Tags: {product.tags.join(', ')}</p>
     </div>
   );
 };

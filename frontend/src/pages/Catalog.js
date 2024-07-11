@@ -3,70 +3,29 @@ import axios from 'axios';
 import CatalogCard from '../components/CatalogCard';
 import { Link } from 'react-router-dom';
 
-const initialProducts = [
-  {
-    "id": "668ea526b269db9dc9d83e30",
-    "name": "Elegant Dress",
-    "price": 59.99,
-    "category": "Clothing",
-    "stock": 50,
-    "description": "An elegant dress perfect for evening events.",
-    "tags": [
-      "dress",
-      "elegant",
-      "evening"
-    ]
-  },
-  {
-    "id": "668ea526b269db9dc9d83e31",
-    "name": "Running Shoes",
-    "price": 49.99,
-    "category": "Footwear",
-    "stock": 150,
-    "description": "Comfortable running shoes for daily use.",
-    "tags": [
-      "shoes",
-      "running",
-      "comfort"
-    ]
-  },
-  {
-    "id": "668ea526b269db9dc9d83e2f",
-    "name": "Stylish Shirt",
-    "price": 29.99,
-    "category": "Clothing",
-    "stock": 100,
-    "description": "A stylish shirt for all occasions.",
-    "tags": [
-      "shirt",
-      "stylish",
-      "casual"
-    ]
-  }
-];
-
-const Catalog = () => {
-  const [products, setProducts] = useState(initialProducts);
+const Catalog = ({ prod_type }) => {
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/products/');
-        setProducts(response.data);
+        const filteredProducts = response.data.filter(product => product.category === prod_type);
+        setProducts(filteredProducts);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [prod_type]);
 
   return (
-    <div>
-      <h1>Catalog</h1>
-      <div className='flex justify-around'>
+    <div className="p-10">
+      <h1 className="text-xl font-bold mb-4">Home/{prod_type}</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((product) => (
-          <Link key={product.id} to={`/product/${product.id}`}>
+          <Link key={product.id} to={`/product/${product.id}`} className="flex justify-center">
             <CatalogCard key={product.id} name={product.name} />
           </Link>
         ))}

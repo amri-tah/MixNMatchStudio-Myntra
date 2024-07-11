@@ -15,23 +15,20 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="women" element={<Catalog />} />
-          <Route path="men" element={<Catalog />} />
-          <Route path="accessories" element={<Catalog />} />
-          <Route path="/product/:id" component={<ProductDetails/>} />
-          <Route path="mixnmatch" element={<MixNMatch />} />
-          <Route path="styleshowdown" element={<StyleShowdown/>} />
+          <Route path="/women" element={<Catalog prod_type={"Women"} />} />
+          <Route path="/men" element={<Catalog prod_type={"Men"} />} />
+          <Route path="/accessories" element={<Catalog prod_type={"Accessories"} />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/mixnmatch" element={<MixNMatch />} />
+          <Route path="/styleshowdown" element={<StyleShowdown />} />
         </Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
