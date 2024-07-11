@@ -4,9 +4,17 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from bson import ObjectId
 from bson.json_util import dumps, loads
-from .models.product import Product
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Adjust this as needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
@@ -37,4 +45,3 @@ async def get_products():
         return products
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
