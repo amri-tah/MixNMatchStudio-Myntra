@@ -2,8 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body{
-    font-family: "Comfortaa";
+    font-family: "Poppins";
+}
+
+.curvy-underline {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .curvy-underline::after {
+    content: '';
+    position: absolute;
+    left: 50%; /* Center the underline horizontally */
+    transform: translateX(-50%); /* Adjust to center it precisely under the text */
+    bottom: -25px; /* Adjust the distance of the underline from the text */
+    width: 80%; /* Width of the underline */
+    height: 10px; /* Thickness of the underline */
+    background-color: black; /* Color of the underline */
+    border-radius: 10px; /* Adjust to make the underline curvy */
+    mix-blend-mode: exclusion;
+  }
+
+.drop-shadow1{
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.drop-shadow2{
+    box-shadow: rgba(255, 143, 43, 1) 5px 5px;
 }

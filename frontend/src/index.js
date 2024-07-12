@@ -16,7 +16,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Navbar />
-      <div className='h-[90vh]'>
+      <div className='h-full'>
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="/women" element={<Catalog prod_type={"Women"} />} />
