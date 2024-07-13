@@ -43,6 +43,7 @@ def mixnmatch_helper(collection) -> dict:
         "name": collection["name"],
         "img_url": collection["cover_img"],
         "likes": collection["likes"],
+        "saves": collection["saves"],
         "products": collection["products"]
     }
 
@@ -93,20 +94,7 @@ async def get_collection_by_id(collection_id: str):
             raise HTTPException(status_code=404, detail="Collection not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-@app.put("/mixnmatch/{collection_id}/add_product/{product_id}")
-async def add_product_to_collection(collection_id: str, product_id: str):
-    collection = collection_mixnmatch.find_one({"_id": ObjectId(collection_id)})
-    if collection is None:
-        raise HTTPException(status_code=404, detail="Collection not found")
 
-    if product_id not in collection['products']:
-        collection['products'].append(product_id)
-        collection_mixnmatch.update_one({"_id": ObjectId(collection_id)}, {"$set": {"products": collection['products']}})
-    else:
-        raise HTTPException(status_code=400, detail="Product already in collection")
-
-    return {"message": "Product added to collection"}
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
