@@ -1,4 +1,5 @@
-![start](https://github.com/user-attachments/assets/56ed031d-8c91-4501-9db1-ea92f6ae7804)
+![image](https://github.com/user-attachments/assets/4c3e88db-2bb0-49f6-9aab-2b427e255ae3)
+
 
 ## Tech Stack
 <div style="width: 200px; display: flex;">
