@@ -18,10 +18,10 @@
 ![styleshowdown](https://github.com/user-attachments/assets/952085fa-89b0-4b54-b1f8-6475932b1868)
 
 ## Contributors 🤝
-<table style="border: none;">
+<table align="center" style="border: none;">
 <tr>
-<td align="center" width="200"><pre><a href="https://github.com/amri-tah"><img src="https://avatars.githubusercontent.com/u/111682039?v=4" width="200" alt="Profile" /><br><sub>@amri-tah</sub></a></pre></td>
-<td align="center" width="200"><pre><a href="https://github.com/dhars1n1"><img src="https://avatars.githubusercontent.com/dhars1n1" width="200" alt="Profile" /><br><sub>@dhars1n1</sub></a>
-<td align="center" width="200"><pre><a href="https://github.com/shruti-sivakumar"><img src="https://avatars.githubusercontent.com/shruti-sivakumar" width="200" alt="Profile" /><br><sub>@shruti-sivakumar</sub></a></pre></td>
+<td align="center" width="300"><pre><a href="https://github.com/amri-tah"><img src="https://avatars.githubusercontent.com/u/111682039?v=4" width="200" alt="Profile" /><br><sub>@amri-tah</sub></a></pre></td>
+<td align="center" width="300"><pre><a href="https://github.com/dhars1n1"><img src="https://avatars.githubusercontent.com/dhars1n1" width="200" alt="Profile" /><br><sub>@dhars1n1</sub></a></pre></td>
+<td align="center" width="300"><pre><a href="https://github.com/shruti-sivakumar"><img src="https://avatars.githubusercontent.com/shruti-sivakumar" width="200" alt="Profile" /><br><sub>@shruti-sivakumar</sub></a></pre></td>
 </tr>
 </table>
