@@ -24,7 +24,7 @@ const MixNMatch = () => {
 
   return (
     <div>
-      <div className='p-3 text-center bg-gradient-to-r from-[#E588B8] to-[#FF8F2B] text-white'>Style Showdown: Retro Picnic - Starting July 5th! <Link to="/styleshowdown">Click Here to Learn More</Link></div>
+      <div className='p-3 text-center bg-gradient-to-r from-[#E588B8] to-[#FF8F2B] text-white'>Style Showdown: Retro Picnic - Starting August 5th! <Link to="/styleshowdown">Click Here to Learn More</Link></div>
       <div className='flex items-center'>
         <div className='w-[60%] p-10 ml-[5%]'>
           <h1 className='text-[1.5rem] leading-[90%]'>INTRODUCING</h1>
@@ -41,7 +41,7 @@ const MixNMatch = () => {
         </div>
       </div>
 
-      <div className="flex gap-3 items-center justify-center my-[5%]">
+      <div className="flex gap-3 items-center justify-center my-[5%] ">
         <div><img src={mic} width={190} alt="Microphone" /></div>
         <div>
           <h1 className="text-[1.5rem]">Calling All Fashion Enthusiasts to</h1>

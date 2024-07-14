@@ -102,11 +102,11 @@ const ProductDetails = () => {
               onChange={(e) => setSelectedCollection(e.target.value)}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             >
-              <option value="">Add to MixNMatch</option>
+              <option value="" disabled selected className='text-black'>Add to MixNMatch Studio</option>
+              <option value="new">Create New Canvas</option>
               {mixnmatchCollections.map((collection) => (
                 <option key={collection._id} value={collection._id}>{collection.name}</option>
               ))}
-              <option value="new">Create New Canvas</option>
             </select>
           </div>
           <button

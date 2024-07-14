@@ -15,30 +15,30 @@ const Navbar = () => {
   ];
 
   return (
-    <div className='flex justify-between w-full py-6 px-10 shadow-lg'>
-      <div className='flex gap-10 text-sm'>
-      <Link to="/">
-        <img src={logo} width={60} alt='logo' className='ml-10' />
-      </Link>
-      <div className='flex gap-10 items-center font-semibold'>
-        <Link to="/women">WOMEN</Link>
-        <Link to="/men">MEN</Link>
-        <Link to="/accessories">ACCESSORIES</Link>
-        <Link to="/mixnmatch">MIX & MATCH STUDIO</Link>
+    <div className='sticky top-0 z-50 bg-white shadow-lg'>
+      <div className='flex justify-between w-full py-6 px-10'>
+        <div className='flex gap-10 text-sm'>
+          <Link to="/">
+            <img src={logo} width={60} alt='logo' className='ml-10' />
+          </Link>
+          <div className='flex gap-10 items-center font-semibold'>
+            <Link to="/women">WOMEN</Link>
+            <Link to="/men">MEN</Link>
+            <Link to="/accessories">ACCESSORIES</Link>
+            <Link to="/mixnmatch">MIX & MATCH STUDIO</Link>
+          </div>
+        </div>
+        <ul className='flex ml-[500px] items-center gap-5'> 
+          {navItems.map((item) => (
+            <li key={item.text}>
+              <Link to={item.link} className='flex flex-col items-center justify-center'>
+                <img src={item.icon} alt={item.text} className='w-6 h-6 mb-1' />
+                <span className='text-md'>{item.text}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-      
-      
-      <ul className='flex ml-[500px] items-center gap-5'> 
-        {navItems.map((item) => (
-          <li key={item.text}>
-            <Link to={item.link}>
-              <img src={item.icon} alt={item.text} className='w-6 h-6 mr-2' />
-              <span>{item.text}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
     </div>
   );
 };

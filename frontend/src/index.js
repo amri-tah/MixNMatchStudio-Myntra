@@ -10,6 +10,7 @@ import MixNMatch from './pages/MixNMatch';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StyleShowdown from './pages/StyleShowdown';
 import ProductDetails from './pages/ProductDetails';
+import Canvas from './pages/CanvasPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,6 +24,7 @@ root.render(
           <Route path="/men" element={<Catalog prod_type={"Men"} />} />
           <Route path="/accessories" element={<Catalog prod_type={"Accessories"} />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/collection/:id" element={<Canvas />} />
           <Route path="/mixnmatch" element={<MixNMatch />} />
           <Route path="/styleshowdown" element={<StyleShowdown />} />
         </Route>
