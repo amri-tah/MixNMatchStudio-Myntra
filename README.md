@@ -35,6 +35,8 @@ Integrated into the Myntra website, this tool allows users to browse and combine
 
 By bridging the visualization gap, customers can see how different items come together, enhancing customer satisfaction and aiding purchase decisions. This feature also highlights hidden gems in our catalog. As users share their unique collections, previously unnoticed clothing items gain visibility and reach.
 
+![image](https://github.com/user-attachments/assets/22e52daf-ce96-4b15-b333-974d7ecb4712)
+
 ### Myntra Style Showdown
 ![styleshowdown](https://github.com/user-attachments/assets/952085fa-89b0-4b54-b1f8-6475932b1868)
 
@@ -64,19 +66,30 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 </div>
 
 ## How We Built It
-
+### Segmentation: 
 We built the Cloth Segmentation Project using the U2NET model for precise segmentation of various clothing items. Utilizing essential libraries like `os`, `requests`, `PIL`, `cv2`, `argparse`, `numpy`, `torch`, `torchvision`, and `matplotlib`, we structured the project with scripts dedicated to tops, bottoms, coords, and skirts. These scripts download images, generate segmentation masks using the pretrained U2NET model, and save the results in specific directories. The core process involves creating alpha masks and transparent background images, with outputs organized for easy access and validation. This modular approach ensures scalability and efficiency, enabling accurate cloth segmentation for diverse applications.
+![image](https://github.com/user-attachments/assets/236964d1-5fcd-4fd7-a85a-8719925de7bb)
 
 ## Screenshots
-Segmentation: 
-![image](https://github.com/user-attachments/assets/236964d1-5fcd-4fd7-a85a-8719925de7bb)
-## Team
+![image](https://github.com/user-attachments/assets/cc8b471c-f45e-4bd8-852c-80844a1e5296)
+![image](https://github.com/user-attachments/assets/e73f4b86-fe6d-481d-bac0-0fa7aa499da7)
+
+![image](https://github.com/user-attachments/assets/13cb2226-9553-4584-a4a3-55949f8cfcf1)
+![image](https://github.com/user-attachments/assets/5a7cfc21-dc43-4376-9507-c9dc5f79c6b4)
+![image](https://github.com/user-attachments/assets/8212d183-40d2-4e03-8649-39921f093085)
+![image](https://github.com/user-attachments/assets/f4aa6ca1-bfac-47f0-b3f2-15338fdad525)
+![image](https://github.com/user-attachments/assets/587e1c07-3c2f-4eae-96d5-6a2a85d0eef3)
+
+![image](https://github.com/user-attachments/assets/8010c0a4-bff6-4ef2-8fd5-49f39477ef76)
+
+
+## The Team
 
 <table align="center" style="border: none;">
 <tr>
-<td align="center" width="300"><pre><a href="https://github.com/amri-tah"><img src="https://avatars.githubusercontent.com/u/111682039?v=4" width="200" alt="Profile" /><br><sub>@amri-tah</sub></a></pre></td>
-<td align="center" width="300"><pre><a href="https://github.com/dhars1n1"><img src="https://avatars.githubusercontent.com/dhars1n1" width="200" alt="Profile" /><br><sub>@dhars1n1</sub></a></pre></td>
-<td align="center" width="300"><pre><a href="https://github.com/shruti-sivakumar"><img src="https://avatars.githubusercontent.com/shruti-sivakumar" width="200" alt="Profile" /><br><sub>@shruti-sivakumar</sub></a></pre></td>
+<td align="center" width="200"><pre><a href="https://github.com/amri-tah"><img src="https://avatars.githubusercontent.com/u/111682039?v=4" width="200" alt="Profile" /><br><sub>@amri-tah</sub></a></pre></td>
+<td align="center" width="200"><pre><a href="https://github.com/dhars1n1"><img src="https://avatars.githubusercontent.com/dhars1n1" width="200" alt="Profile" /><br><sub>@dhars1n1</sub></a></pre></td>
+<td align="center" width="200"><pre><a href="https://github.com/shruti-sivakumar"><img src="https://avatars.githubusercontent.com/shruti-sivakumar" width="200" alt="Profile" /><br><sub>@shruti-sivakumar</sub></a></pre></td>
 </tr>
 </table>
 
