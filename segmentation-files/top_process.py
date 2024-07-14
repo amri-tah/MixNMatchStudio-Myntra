@@ -187,13 +187,13 @@ def download_image(url, save_path):
 def main(args):
 
     alpha_out = './output/alpha/1.png'
-    output_path = './output/transparent_image.png'
     downloaded_image_path = './input_image.png'
 
     device = 'cuda:0' if args.cuda else 'cpu'
 
     # Download the image
-    download_image(args.image_url, downloaded_image_path)
+    image_name = download_image(args.image_url, downloaded_image_path).split('/')[-1]
+    output_path = f'./output/{image_name}'
 
     # Create an instance of your model
     model = load_seg_model(args.checkpoint_path, device=device)
@@ -216,7 +216,6 @@ if __name__ == '__main__':
 
     # Set the URL directly here
     if not args.image_url:
-        args.image_url = "https://myntra-products.s3.amazonaws.com/original/coll2_3.png"
+        args.image_url = "https://myntra-products.s3.amazonaws.com/original/coll6_1.png"
 
     main(args)
-
