@@ -65,6 +65,7 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 
 ## How We Built It
 
+We built the Cloth Segmentation Project using the U2NET model for precise segmentation of various clothing items. Utilizing essential libraries like `os`, `requests`, `PIL`, `cv2`, `argparse`, `numpy`, `torch`, `torchvision`, and `matplotlib`, we structured the project with scripts dedicated to tops, bottoms, coords, and skirts. These scripts download images, generate segmentation masks using the pretrained U2NET model, and save the results in specific directories. The core process involves creating alpha masks and transparent background images, with outputs organized for easy access and validation. This modular approach ensures scalability and efficiency, enabling accurate cloth segmentation for diverse applications.
 
 ## Screenshots
 Segmentation: 
