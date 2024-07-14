@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from bson import ObjectId
 from bson.json_util import dumps, loads
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -23,12 +24,20 @@ db = client.myntra_database
 collection_prod = db.products
 collection_mixnmatch = db.mixnmatch
 
+class MixNMatchCreate(BaseModel):
+    name: str
+    description: str
+    user: str
+    cover_img: str
+
+
 def product_helper(product) -> dict:
     return {
         "id": str(product["_id"]),
         "brand": product["brand"],
         "name": product["name"],
         "img_url": product["img_url"],
+        "seg_url": product["segmented_image_url"],
         "price": product["price"],
         "category": product["category"],
         "rating": product["rating"],
@@ -44,12 +53,12 @@ def mixnmatch_helper(collection) -> dict:
         "img_url": collection["cover_img"],
         "likes": collection["likes"],
         "saves": collection["saves"],
-        "products": collection["products"]
+        "products": [str(prod_id) for prod_id in collection["products"]]
     }
 
 @app.get("/")
 async def hello_world():
-    return {"Hello":"World"}
+    return {"Team":"InnovateHers", "Members": ["Amritha Nandini", "Dharsini Sri", "Shruti Sivakumar"], "Institute": "Amrita Vishwa Vidyapeetham, Coimbatore"}
 
 @app.get("/products/")
 async def get_products():
@@ -95,7 +104,44 @@ async def get_collection_by_id(collection_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.put("/mixnmatch/{collection_id}/add_product/{product_id}")
+async def add_product_to_collection(collection_id: str, product_id: str):
+    try:
+        collection = collection_mixnmatch.find_one({"_id": ObjectId(collection_id)})
+        if not collection:
+            raise HTTPException(status_code=404, detail="Collection not found")
 
+        product = collection_prod.find_one({"_id": ObjectId(product_id)})
+        if not product:
+            raise HTTPException(status_code=404, detail="Product not found")
+
+        collection_mixnmatch.update_one(
+            {"_id": ObjectId(collection_id)},
+            {"$addToSet": {"products": ObjectId(product_id)}}
+        )
+
+        return {"message": "Product added to collection successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/mixnmatch/{product_id}")
+async def create_mixnmatch_collection(product_id: str, collection: MixNMatchCreate):
+    try:
+        new_collection = {
+            "name": collection.name,
+            "description": collection.description,
+            "user": collection.user,
+            "cover_img": collection.cover_img,
+            "likes": 0,
+            "saves": 0,
+            "products": [ObjectId(product_id)]
+        }
+        result = collection_mixnmatch.insert_one(new_collection)
+        created_collection = collection_mixnmatch.find_one({"_id": result.inserted_id})
+        return mixnmatch_helper(created_collection)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     import uvicorn

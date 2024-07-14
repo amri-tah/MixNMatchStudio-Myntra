@@ -7,7 +7,7 @@ const CatalogCard = ({ brand, name, img_url, price }) => {
         <img
           src={img_url}
           alt={name}
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-[300px]"
         />
       </div>
       <div className="mt-4">

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import bag from '../assets/bag.png';
+import heart from '../assets/Heart.png'
+import star from '../assets/star.png'
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -59,20 +61,19 @@ const ProductDetails = () => {
 
   const handleCreateNewCanvas = async () => {
     try {
-      const response = await axios.post('/mixnmatch/', {
-        name: newCanvasName,
-        description: newCanvasDescription,
-        user: "InnovateHers", // Assuming you have a user context or can retrieve it from elsewhere
-        cover_img: "https://myntra-products.s3.amazonaws.com/original/coll2_3.png",
-        products: [id]
-      });
-      setShowDialog(false);
-      setMixnmatchCollections([...mixnmatchCollections, response.data]);
-      alert('New canvas created and product added');
+        const response = await axios.post(`/mixnmatch/${product.id}`, {
+            name: newCanvasName,
+            description: newCanvasDescription,
+            user: "InnovateHers",
+            cover_img: product.img_url,
+        });
+        setShowDialog(false);
+        setMixnmatchCollections([...mixnmatchCollections, response.data]);
+        alert('New canvas created and product added');
     } catch (error) {
-      console.error('Error creating new canvas:', error);
+        console.error('Error creating new canvas:', error);
     }
-  };
+};
 
   if (!product) return <div>Loading...</div>;
 
@@ -84,37 +85,52 @@ const ProductDetails = () => {
       <div className="flex gap-[100px] ml-10">
         <div><img src={product.img_url} width={400} alt={product.name} /></div>
         <div>
-          <h1 className="font-bold text-2xl">{product.brand}</h1>
+          <h1 className="font-bold text-2xl">{product.brand}</h1> 
           <h1 className="font-normal text-lg">{product.name}</h1>
-          <h1 className="font-bold text-2xl mt-7">₹ {product.price}</h1>
-          <h1 className="font-bold text-md text-green-600">inclusive of all taxes</h1>
+          <div className='flex border gap-2 w-fit p-2'>
+            <div className='flex gap-2 items-center'>
+              {product.rating}
+              <img src={star} width={20}/>
+              </div> | {product.norating} Ratings
+          </div>
+          <h1 className="font-bold text-[2rem] mt-7">₹ {product.price}</h1>
+          <h1 className="text-md text-green-600">inclusive of all taxes</h1>
           <h1 className="font-normal text-lg mt-5">SELECT SIZE</h1>
           <div className="flex gap-7 text-lg">
             {product.sizes.map((size) => (
-              <div key={size} className="flex justify-center items-center p-4 mt-2 mb-10 border-2 border-gray-600">{size}</div>
+              <div key={size} className="flex justify-center items-center  px-4 py-2 mt-2 mb-10 border-2 rounded-2xl border-[#FF3F6C]">{size}</div>
             ))}
           </div>
-          <button className="w-[370px] h-[60px] bg-[#FF3F6C] text-white font-semibold text-lg">ADD TO BAG</button>
-          <div className="flex gap-[10px] w-[370px] h-[60px] justify-center items-center border-2 border-[#FF3F6C] text-[#FF3F6C] font-semibold text-lg mt-5 relative">
-            <img src={bag} width={20} height={20} alt="Add to MixNMatch" />
+          <div className='flex items-center gap-5'>
+          <button className=" bg-[#FF3F6C] text-white font-semibold text-lg px-5 py-3 rounded-lg flex items-center gap-3">
+          <img src={bag} width={20} height={20} alt="Add to MixNMatch" />
+          ADD TO BAG</button>
+          <img src={heart} width={30}></img>
+          </div>
+          
+          <div className="flex gap-4 justify-center items-center mt-4 ">
+            <div className='border-2 border-[#FF3F6C] text-md text-[#FF3F6C] font-semibold  px-5 py-3'>
             <select
               value={selectedCollection}
               onChange={(e) => setSelectedCollection(e.target.value)}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              className="w-full h-full cursor-pointer text-md text-black focus:outline-none"
             >
-              <option value="" disabled selected className='text-black'>Add to MixNMatch Studio</option>
+              <option value="" disabled selected className='text-black '>Add to Mix&Match Studio</option>
               <option value="new">Create New Canvas</option>
               {mixnmatchCollections.map((collection) => (
                 <option key={collection._id} value={collection._id}>{collection.name}</option>
               ))}
             </select>
-          </div>
-          <button
-            className="w-[370px] h-[60px] bg-[#FF3F6C] text-white font-semibold text-lg mt-5"
+
+            </div>
+            <button
+            className="px-5 py-3 rounded-lg flex items-center gap-3 bg-[#FF3F6C] text-white font-semibold text-lg"
             onClick={handleAddToMixNMatch}
           >
-            CONFIRM ADD TO MIXNMATCH
+            Add to Mix&Match Studio
           </button>
+          </div>
+          
         </div>
       </div>
       {showDialog && (

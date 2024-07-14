@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Stage, Layer } from "react-konva";
 import ProductImage from "../components/ProductImage";
-import heart from "../assets/Heart.png";
 import save from "../assets/Add.png";
 import add from "../assets/Add1.png";
 import remove from "../assets/Remove.png";
+import heart from "../assets/Heart.png";
+
 
 const CanvasPage = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const CanvasPage = () => {
 
         const initialImages = data.products.map((product, index) => ({
           id: product.id,
-          src: product.img_url,
+          src: product.seg_url,
           x: 50 * index,
           y: 50 * index,
           width: 100,
@@ -73,7 +74,7 @@ const CanvasPage = () => {
   const handleAddImage = (product) => {
     const newImage = {
       id: product.id,
-      src: product.img_url,
+      src: product.seg_url,
       x: Math.random() * stageRef.current.width(),
       y: Math.random() * stageRef.current.height(),
       width: 100,
@@ -124,7 +125,7 @@ const CanvasPage = () => {
             Products in this Collection:
           </h2>
 
-          <div className="h-[500px] overflow-auto">
+          <div className="max-h-[500px] h-fit overflow-auto">
             {collection.products.map((product) => (
               <div
                 key={product.id}
@@ -165,11 +166,21 @@ const CanvasPage = () => {
             <p className="font-bold text-2xl">Rs. {totalPrice}</p>
           </div>
           
-          <div className="mt-2 rounded-l flex items-center justify-between gap-5">
-            <h3 className="font-bold text-xl"></h3>
-            
-            <button className="w-fit px-5 py-3 rounded-lg bg-[#FF3F6C] text-white font-semibold text-lg">ADD TO BAG</button>
+          <div className="mt-2 rounded-l flex items-center justify-between gap-5 ">
+            <h3 className="font-bold text-xl w-[65%]"></h3>
+            <div className="flex gap-2">
+            <div>
+              <img src={heart} width={32} />
+              <h1 className="text-center">{collection.likes}</h1>
+            </div>
 
+            <div>
+              <img src={save} width={32} />
+              <h1 className="text-center">{collection.saves}</h1>
+            </div>
+            </div>
+
+            <button className="w-fit px-5 py-3 rounded-lg bg-[#FF3F6C] text-white font-semibold text-lg">ADD TO BAG</button>
           </div>
         </div>
       </div>

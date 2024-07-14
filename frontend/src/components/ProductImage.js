@@ -48,7 +48,7 @@ const ProductImage = ({ image, isSelected, onSelect, onDragEnd, onTransformEnd }
         ref={imageRef}
         shadowBlur={50}
         shadowColor="black"
-        shadowOpacity={0.2}
+        shadowOpacity={0.1}
       />
       {isSelected && (
         <Transformer

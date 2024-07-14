@@ -13,7 +13,7 @@ const MixNMatchCard = ({ name, img_url, user, likes, saves }) => {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="flex justify-around items-center">
+        <div className="flex justify-between items-center">
           <div className="mt-4">
             <h2 className="text-sm font-normal">{user}</h2>
             <h2 className="text-lg font-bold">{name}</h2>
