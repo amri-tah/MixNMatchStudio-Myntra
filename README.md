@@ -65,8 +65,10 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 
 ## How We Built It
 
-## Screenshots
 
+## Screenshots
+Segmentation: 
+![image](https://github.com/user-attachments/assets/236964d1-5fcd-4fd7-a85a-8719925de7bb)
 ## Team
 
 <table align="center" style="border: none;">
