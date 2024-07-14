@@ -1,5 +1,10 @@
-![image](https://github.com/user-attachments/assets/4c3e88db-2bb0-49f6-9aab-2b427e255ae3)
+![start](https://github.com/user-attachments/assets/00b684fd-adb0-4e7a-9124-d311a09d9b97)
+[View the Canva Presentation](https://www.canva.com/design/DAGIr4NWacs/Btm7QaY3T82euLjr0PeOyw/view?utm_content=DAGIr4NWacs&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 
+[View the Figma Prototype](https://www.figma.com/proto/milkChhGO0yHKmKAgWtEIt/WeForShe24-InnovateHers?node-id=192-16&t=DOtBIIz6m957XMcQ-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1)
+## Motivation
+
+## Objective
 
 ## Tech Stack
 <div style="width: 200px; display: flex;">
@@ -8,17 +13,17 @@
 
 </div>
 
-[View the Canva Presentation](https://www.canva.com/design/DAGIr4NWacs/Btm7QaY3T82euLjr0PeOyw/view?utm_content=DAGIr4NWacs&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+## What We Built
 
-[View the Figma Prototype](https://www.figma.com/proto/milkChhGO0yHKmKAgWtEIt/WeForShe24-InnovateHers?node-id=192-16&t=DOtBIIz6m957XMcQ-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1)
-
-## Mix & Match Studio
+### Mix & Match Studio
 ![mixnmatch](https://github.com/user-attachments/assets/0643cfdb-49ff-4ba8-82cd-be4b6b96c506)
 
-## Style Showdown
+### Style Showdown
 ![styleshowdown](https://github.com/user-attachments/assets/952085fa-89b0-4b54-b1f8-6475932b1868)
 
-## Contributors 🤝
+## How We Built It
+
+## Team
 <table align="center" style="border: none;">
 <tr>
 <td align="center" width="300"><pre><a href="https://github.com/amri-tah"><img src="https://avatars.githubusercontent.com/u/111682039?v=4" width="200" alt="Profile" /><br><sub>@amri-tah</sub></a></pre></td>
