@@ -1,5 +1,7 @@
+
+
 ## Tech Stack
-<div style="width: 200px; display: flex">
+<div style="width: 200px; display: flex;">
   <img src="https://konvajs.org/android-chrome-192x192.png" width="50" />
   <img src="https://skillicons.dev/icons?i=react,tailwind,fastapi,pytorch,aws,mongodb,figma,canva">
 
@@ -9,10 +11,11 @@
 
 [View the Figma Prototype](https://www.figma.com/proto/milkChhGO0yHKmKAgWtEIt/WeForShe24-InnovateHers?node-id=192-16&t=DOtBIIz6m957XMcQ-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1)
 
-
 ## Mix & Match Studio
+![mixnmatch](https://github.com/user-attachments/assets/0643cfdb-49ff-4ba8-82cd-be4b6b96c506)
 
 ## Style Showdown
+![styleshowdown](https://github.com/user-attachments/assets/952085fa-89b0-4b54-b1f8-6475932b1868)
 
 ## Contributors 🤝
 <table style="border: none;">
