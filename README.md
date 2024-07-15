@@ -69,8 +69,12 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 ### Segmentation: 
 The segmentation model utilized in this project is derived from the repository found at https://github.com/oyelmali/Cloth-Semantic-Segmentation . We have customized the model to incorporate separate codes with distinct alpha masks for tops, bottoms, skirts, and coords. Further, we will make sure upon generating the PNG images, we have integrated the code to ensure that these images are automatically uploaded to the segmentation folder within our AWS bucket.
 
-
 ![image](https://github.com/user-attachments/assets/236964d1-5fcd-4fd7-a85a-8719925de7bb)
+
+### Visualisation Using GenAI
+Different clothing and accessories can be visualized as various outfit combinations using GenAI. For this, we will be using the DeepFashion Try-On model and the Dressing-In-Order model. These models allow different pieces of clothing to be visualized on subjects of various skin tones and body types. Layering of clothes and accessories can also be implemented using these models. This provides customers with a sense of personalization and helps them pick suitable products. It also helps reduce the return of products.
+
+![Unknown](https://github.com/user-attachments/assets/cf7b67dc-256d-43c8-bb4b-63c7391cac48)
 
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/cc8b471c-f45e-4bd8-852c-80844a1e5296)
