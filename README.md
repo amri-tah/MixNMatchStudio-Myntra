@@ -66,7 +66,7 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 </div>
 
 ## How We Built It
-### Segmentation: 
+### Segmentation
 The segmentation model utilized in this project is derived from the repository found at https://github.com/oyelmali/Cloth-Semantic-Segmentation . We have customized the model to incorporate separate codes with distinct alpha masks for tops, bottoms, skirts, and coords. Further, we will make sure upon generating the PNG images, we have integrated the code to ensure that these images are automatically uploaded to the segmentation folder within our AWS bucket.
 
 ![image](https://github.com/user-attachments/assets/236964d1-5fcd-4fd7-a85a-8719925de7bb)
