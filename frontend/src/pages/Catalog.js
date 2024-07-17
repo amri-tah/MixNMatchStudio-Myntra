@@ -10,6 +10,7 @@ const Catalog = ({ prod_type }) => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/products/');
+        console.log('Response data:', response.data);
         const filteredProducts = response.data.filter(product => product.category === prod_type);
         setProducts(filteredProducts);
       } catch (error) {
