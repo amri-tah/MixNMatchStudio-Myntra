@@ -24,6 +24,8 @@ To run this project, ensure you have the following libraries installed:
 - `torchvision`
 - `matplotlib`
 
+You can download the pretrained model from the following link: https://huggingface.co/oyelmali/Clothes-Semantic-Segmentation/blob/main/cloth_segm.pth
+
 ## Project Structure 📁
 
 - **network.py**: Contains the U2NET model architecture.
