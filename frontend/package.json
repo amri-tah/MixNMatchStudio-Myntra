@@ -16,7 +16,7 @@
     "use-image": "^1.1.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://myntra-mixnmatch-backend.vercel.app/" ,
+  "proxy": "http://localhost:8000/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "react-router-dom": "^6.24.1",
     "tailwindcss": "^3.4.4"
   }

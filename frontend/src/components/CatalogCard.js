@@ -2,7 +2,7 @@ import React from 'react';
 
 const CatalogCard = ({ brand, name, img_url, price }) => {
   return (
-    <div className="bg-white p-6 flex flex-col justify-between max-w-[300px] rounded-lg shadow-xl">
+    <div className="bg-white p-6 flex flex-col justify-between max-w-[300px] rounded-lg shadow-xl mt-4">
       <div className="overflow-hidden bg-gray-200 w-full aspect-w-4 aspect-h-3">
         <img
           src={img_url}

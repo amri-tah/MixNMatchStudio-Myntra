@@ -78,7 +78,7 @@ const ProductDetails = () => {
   if (!product) return <div>Loading...</div>;
 
   return (
-    <div className="p-10">
+    <div className="p-10 mb-7">
       <h1 className="text-md font-bold mb-4 ml-10">
         <span className="font-normal">Home/{product.category}/ </span>{product.name}
       </h1>
@@ -90,7 +90,7 @@ const ProductDetails = () => {
           <div className='flex border gap-2 w-fit p-2'>
             <div className='flex gap-2 items-center'>
               {product.rating}
-              <img src={star} width={20}/>
+              <img src={star} width={20} alt='rating'/>
               </div> | {product.norating} Ratings
           </div>
           <h1 className="font-bold text-[2rem] mt-7">₹ {product.price}</h1>
@@ -105,7 +105,7 @@ const ProductDetails = () => {
           <button className=" bg-[#FF3F6C] text-white font-semibold text-lg px-5 py-3 rounded-lg flex items-center gap-3">
           <img src={bag} width={20} height={20} alt="Add to MixNMatch" />
           ADD TO BAG</button>
-          <img src={heart} width={30}></img>
+          <img src={heart} width={30} alt='heart'></img>
           </div>
           
           <div className="flex gap-4 justify-center items-center mt-4 ">

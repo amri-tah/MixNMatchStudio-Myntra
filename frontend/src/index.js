@@ -15,7 +15,7 @@ import Canvas from './pages/CanvasPage';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Navbar />
       <div className='h-full'>
       <Routes>

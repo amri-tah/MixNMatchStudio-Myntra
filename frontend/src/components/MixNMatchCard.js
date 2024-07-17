@@ -20,12 +20,12 @@ const MixNMatchCard = ({ name, img_url, user, likes, saves }) => {
           </div>
           <div className="flex gap-1 mt-3">
             <div>
-              <img src={heart} width={25} />
+              <img src={heart} width={25} alt="likes"/>
               <h1 className="text-center">{likes}</h1>
             </div>
 
             <div>
-              <img src={save} width={25} />
+              <img src={save} width={25} alt="saves" />
               <h1 className="text-center">{saves}</h1>
             </div>
           </div>
