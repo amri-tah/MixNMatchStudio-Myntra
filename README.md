@@ -25,7 +25,7 @@ Traditional retail models are failing to resonate with Gen Z, a critical demogra
 ## Our Solution 💡
 
 ### MixNMatch Studio
-![mixnmatch](https://github.com/user-attachments/assets/0643cfdb-49ff-4ba8-82cd-be4b6b96c506)
+![image](https://github.com/user-attachments/assets/58fb4223-2dd6-4ce4-a994-00f613e2b6b6)
 
 Integrated into the Myntra website, this tool allows users to browse and combine catalog items to visualize complete outfits.
 
