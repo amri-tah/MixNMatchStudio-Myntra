@@ -7,16 +7,16 @@ import heart from '../assets/HeartNav.png';
 import profile from '../assets/User.png';
 import search from '../assets/search.png'
 
+const navItems = [
+  { icon: cart, text: 'Cart', link: '/' },
+  { icon: canvas, text: 'Canvas', link: '/' },
+  { icon: heart, text: 'Wishlist', link: '/wishlist' },
+  { icon: profile, text: 'Profile', link: '/profile' },
+];
+
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
-  const navItems = [
-    { icon: cart, text: 'Cart', link: '/' },
-    { icon: canvas, text: 'Canvas', link: '/' },
-    { icon: heart, text: 'Wishlist', link: '/wishlist' },
-    { icon: profile, text: 'Profile', link: '/profile' },
-  ];
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ const Navbar = () => {
             type='text'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder='Search for products...'
+            placeholder='Search for products and brands..'
             className='border rounded-l-md px-4 py-2 w-[300px]'
           />
           <button type='submit' className='bg-black text-white px-4 py-2 rounded-r-md'>

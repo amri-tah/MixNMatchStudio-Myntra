@@ -2,6 +2,7 @@ import os
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from dotenv import load_dotenv
+from bson import ObjectId
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
@@ -246,23 +247,29 @@ products = [
 
 mixnmatch = [
     {
-        "name": "Casual Day Out",
+        "name": "Cool Fit",
         "description": "A perfect casual outfit for a day out.",
         "user": "InnovateHers",
-        "cover_img": "https://myntra-products.s3.amazonaws.com/original/coll1_3.png",
-        "products": ["6693b75e1ab7b3734f561f04", "6693b75e1ab7b3734f561f05", "6693b75e1ab7b3734f561f06"],  
+        "cover_img": "https://myntra-products.s3.amazonaws.com/original/coll4_1.png",
+        "products": [{"id": ObjectId("6693b75e1ab7b3734f561f15"), "x": 50,
+      "y": 50,
+      "width": 100,
+      "height": 100}, {"id":ObjectId("6693b75e1ab7b3734f561f14"), "x": 90,
+      "y": 90,
+      "width": 100,
+      "height": 100}],  
         "likes": 5,
         "saves": 10
     },
-    {
-        "name": "Elegant Evening",
-        "description": "An elegant look for evening events.",
-        "user": "InnovateHers",
-        "cover_img": "https://myntra-products.s3.amazonaws.com/original/coll2_3.png",
-        "products": ["6693b75e1ab7b3734f561f07", "6693b75e1ab7b3734f561f08", "6693b75e1ab7b3734f561f09", "6693b75e1ab7b3734f561f0a", "6693b75e1ab7b3734f561f0b"],  
-        "likes": 8,
-        "saves": 5
-    },
+    # {
+    #     "name": "Elegant Evening",
+    #     "description": "An elegant look for evening events.",
+    #     "user": "InnovateHers",
+    #     "cover_img": "https://myntra-products.s3.amazonaws.com/original/coll2_3.png",
+    #     "products": ["6693b75e1ab7b3734f561f07", "6693b75e1ab7b3734f561f08", "6693b75e1ab7b3734f561f09", "6693b75e1ab7b3734f561f0a", "6693b75e1ab7b3734f561f0b"],  
+    #     "likes": 8,
+    #     "saves": 5
+    # },
 ]
 
 # result = collection_prod.insert_many(products)
