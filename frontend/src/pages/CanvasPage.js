@@ -113,8 +113,9 @@ const CanvasPage = () => {
               </Layer>
             </Stage>
           </div>
-          <div className="mt-2 rounded-l flex items-center justify-between gap-5">
+          <div className="mt-2 rounded-l flex items-center justify-end gap-2">
             <h3 className="font-bold text-xl"></h3>
+            <div className="text-lg px-4 py-3 bg-black text-white rounded-xl">SAVE</div>
             <p className="text-lg px-4 py-3 bg-gradient-to-r from-[#E588B8]  to-[#FF8F2B] text-white rounded-xl">
               Visualize using AI
             </p>

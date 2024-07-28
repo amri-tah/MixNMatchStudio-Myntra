@@ -1,11 +1,13 @@
 import os
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Query
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from bson import ObjectId
 from bson.json_util import dumps, loads
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import List, Optional
+from fuzzywuzzy import process
 
 app = FastAPI()
 
@@ -30,6 +32,11 @@ class MixNMatchCreate(BaseModel):
     user: str
     cover_img: str
 
+def search_products(query: str, products: List[dict], limit: int = 4) -> List[dict]:
+    product_names = [product["name"] for product in products]
+    results = process.extract(query, product_names, limit=limit)
+    matched_products = [products[product_names.index(result[0])] for result in results]
+    return matched_products
 
 def product_helper(product) -> dict:
     return {
@@ -61,10 +68,14 @@ async def hello_world():
     return {"Team":"InnovateHers", "Members": ["Amritha Nandini", "Dharsini Sri", "Shruti Sivakumar"], "Institute": "Amrita Vishwa Vidyapeetham, Coimbatore"}
 
 @app.get("/products/")
-async def get_products():
+async def get_products(query: Optional[str] = Query(None)):
     try:
         products_cursor = collection_prod.find()
         products = [product_helper(product) for product in products_cursor]
+
+        if query:
+            products = search_products(query, products)
+        
         return products
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

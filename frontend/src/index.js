@@ -27,6 +27,7 @@ root.render(
           <Route path="/collection/:id" element={<Canvas />} />
           <Route path="/mixnmatch" element={<MixNMatch />} />
           <Route path="/styleshowdown" element={<StyleShowdown />} />
+          <Route path="/search" element={<Catalog />} />
         </Route>
       </Routes>
       </div>
