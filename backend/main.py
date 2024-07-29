@@ -38,7 +38,7 @@ class ProductPosition(BaseModel):
     width: int
     height: int
 
-def search_products(query: str, products: List[dict], limit: int = 4) -> List[dict]:
+def search_products(query: str, products: List[dict], limit: int = 3) -> List[dict]:
     product_names = [product["name"] for product in products]
     results = process.extract(query, product_names, limit=limit)
     matched_products = [products[product_names.index(result[0])] for result in results]
@@ -94,6 +94,16 @@ async def get_products(query: Optional[str] = Query(None)):
         return products
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/aisearch")
+async def ai_search(query: Optional[str] = Query(None)):
+    products_cursor = collection_prod.find()
+    products = [product_helper(product) for product in products_cursor]
+
+    ### Use Gemini to convert the chat input (query) into 2-3 keywords 
+    ### and feed them one by one into the search_products function
+    products = search_products(query, products)
+    return {"query": products}
 
 @app.get("/products/{product_id}")
 async def get_product_by_id(product_id: str):
