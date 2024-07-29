@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 from fuzzywuzzy import process
+import math
 
 app = FastAPI()
 
@@ -161,7 +162,7 @@ async def add_product_to_collection(collection_id: str, product: ProductPosition
 
         collection_mixnmatch.update_one(
             {"_id": ObjectId(collection_id)},
-            {"$addToSet": {"products": {"id": ObjectId(product.id), "x": product.x, "y": product.y, "width": product.width, "height": product.height}}}
+            {"$addToSet": {"products": {"id": ObjectId(product.id), "x": math.random()*100, "y": math.random()*100, "width": 100, "height": 100}}}
         )
 
         return {"message": "Product added to collection successfully"}
@@ -185,6 +186,36 @@ async def create_mixnmatch_collection(product_id: str, collection: MixNMatchCrea
         return mixnmatch_helper(created_collection)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.put("/mixnmatch/{collection_id}/save_positions/")
+async def save_positions(collection_id: str, products: List[ProductPosition]):
+    try:
+        if not ObjectId.is_valid(collection_id):
+            raise HTTPException(status_code=400, detail="Invalid collection_id")
+
+        collection = collection_mixnmatch.find_one({"_id": ObjectId(collection_id)})
+        if not collection:
+            raise HTTPException(status_code=404, detail="Collection not found")
+
+        # Logging the incoming data for debugging
+        logging.info(f"Received data: {products}")
+
+        updated_products = [
+            {"id": ObjectId(product.id), "x": product.x, "y": product.y, "width": product.width, "height": product.height}
+            for product in products
+        ]
+
+        collection_mixnmatch.update_one(
+            {"_id": ObjectId(collection_id)},
+            {"$set": {"products": updated_products}}
+        )
+
+        return {"message": "Positions and sizes updated successfully"}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
