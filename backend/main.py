@@ -34,10 +34,10 @@ class MixNMatchCreate(BaseModel):
 
 class ProductPosition(BaseModel):
     id: str
-    x: int
-    y: int
-    width: int
-    height: int
+    x: float
+    y: float
+    width: float
+    height: float
 
 def search_products(query: str, products: List[dict], limit: int = 3) -> List[dict]:
     product_names = [product["name"] for product in products]
@@ -197,11 +197,8 @@ async def save_positions(collection_id: str, products: List[ProductPosition]):
         if not collection:
             raise HTTPException(status_code=404, detail="Collection not found")
 
-        # Logging the incoming data for debugging
-        logging.info(f"Received data: {products}")
-
         updated_products = [
-            {"id": ObjectId(product.id), "x": product.x, "y": product.y, "width": product.width, "height": product.height}
+            {"id": ObjectId(product.id), "x": int(product.x), "y": int(product.y), "width": int(product.width), "height": int(product.height)}
             for product in products
         ]
 

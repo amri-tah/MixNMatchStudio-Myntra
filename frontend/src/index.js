@@ -28,6 +28,7 @@ root.render(
           <Route path="/mixnmatch" element={<MixNMatch />} />
           <Route path="/styleshowdown" element={<StyleShowdown />} />
           <Route path="/search" element={<Catalog />} />
+          
         </Route>
       </Routes>
       </div>
