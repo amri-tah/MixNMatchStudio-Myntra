@@ -15,6 +15,8 @@ const CanvasPage = () => {
   const [images, setImages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const stageRef = useRef(null);
 
   useEffect(() => {
@@ -108,6 +110,34 @@ const CanvasPage = () => {
     setTimeout(() => setCopied(false), 2000);
   }
 
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(`/aisearch`, {
+        params: { query: searchQuery },
+      });
+      setSearchResults(response.data.products);
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  };
+
+  const handleAddImageFromSearch = (product) => {
+    handleAddImage(product);
+    setShowDialog(false);
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await axios.delete(`/mixnmatch/${collection.id}/remove_product/${productId}`);
+      const updatedProducts = collection.products.filter((product) => product.id !== productId);
+      setCollection({ ...collection, products: updatedProducts });
+      handleRemoveImage(productId);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   const totalPrice = collection
     ? collection.products.reduce((sum, product) => sum + product.price, 0)
     : 0;
@@ -184,6 +214,13 @@ const CanvasPage = () => {
                       >
                         <img src={remove} alt="Remove" width={25} />
                       </button>
+
+                      <button
+                        className="px-2 py-1 text-black"
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -228,31 +265,67 @@ const CanvasPage = () => {
       </div>
 
       {showDialog && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-          <div className="w-[45%] bg-white flex-row px-10 py-6 rounded-xl">
-            <p className="font-bold text-[2rem]">AI Search</p>
-            <form className="flex items-center mr-5 border rounded-l-md mb-4">
-              <input
-                type="text"
-                placeholder="Search for products and brands.."
-                className=" px-4 py-3 w-full outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-[#FF3F6C] text-white px-4 py-3 rounded-md"
+  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+    <div className="w-[60vw] h-fit max-h-[600px] mt-20 bg-white flex flex-col gap-2 p-6 rounded-lg">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="font-semibold text-2xl">AI Search</h1>
+        <button onClick={() => setShowDialog(false)} className="text-xl font-bold">&times;</button>
+      </div>
+      <form onSubmit={handleSearch} className="flex gap-2 mb-4">
+        <input
+          type="text"
+          className="p-2 border-2 border-black rounded-lg flex-grow"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Casual Day Out"
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-[#FF3F6C] text-white rounded-lg"
+        >
+          Search
+        </button>
+      </form>
+
+      <div className="overflow-y-auto max-h-96">
+        {searchResults.length === 0 ? (
+          <p></p>
+        ) : (
+          <div className="grid grid-cols-3 gap-4">
+            {searchResults.map((product) => (
+              <div
+                key={product.id}
+                className="border p-2 rounded-lg"
               >
-                Search
-              </button>
-            </form>
-            <button
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-              onClick={() => setShowDialog(false)}
-            >
-              Cancel
-            </button>
+                <img
+                  src={product.img_url}
+                  alt={product.name}
+                  className="w-full h-40 object-cover rounded-lg mb-2"
+                />
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p className="font-bold text-sm">{product.brand}</p>
+                    <h3 className="text-md leading-2 text-gray-600">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm font-semibold">Rs. {product.price}</p>
+                  </div>
+                  <button
+                    onClick={() => handleAddImageFromSearch(product)}
+                    className="w-[60px] p-1 m-1 h-fit bg-[#FF3F6C] text-white rounded-full"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

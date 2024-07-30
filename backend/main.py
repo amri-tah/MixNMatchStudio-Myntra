@@ -48,7 +48,7 @@ class ProductPosition(BaseModel):
     width: Optional[float] = 100
     height: Optional[float] = 100
 
-def search_products(query: str, products: List[dict], limit: int = 3) -> List[dict]:
+def search_products(query: str, products: List[dict], limit: int = 1) -> List[dict]:
     product_names = [product["name"] for product in products]
     results = process.extract(query, product_names, limit=limit)
     matched_products = [products[product_names.index(result[0])] for result in results]
@@ -89,12 +89,10 @@ def mixnmatch_helper(collection) -> dict:
     }
 
 def get_keywords_from_gemini(query: str) -> List[str]:
-    # Configure Google Generative AI with the API key
     genai.configure(api_key=gemini_api_key)
     
-    # Define the one-shot prompt
     prompt = f'''
-    You are a fashion expert. Given a customer's situation, generate keywords related to suitable clothing options for them. For example, if the customer's query is "I want to go to a business conference," the keywords could be "blazer, suit, formal dress." Customer query: "{query}" Keywords:
+    You are a fashion expert. Given a customer's situation, generate five keywords related to suitable clothing options for them. For example, if the customer's query is "I want to go to a business conference," the keywords could be "blazer, suit, formal dress." Customer query: "{query}" Keywords:
     '''
     
     # Generate content using the configured model
@@ -226,6 +224,28 @@ async def add_product_to_collection(collection_id: str, product_id: str):
         return {"message": "Product added to collection successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.delete("/mixnmatch/{collection_id}/remove_product/{product_id}")
+async def remove_product_from_collection(collection_id: str, product_id: str):
+    try:
+        if not ObjectId.is_valid(collection_id):
+            raise HTTPException(status_code=400, detail="Invalid collection_id")
+        if not ObjectId.is_valid(product_id):
+            raise HTTPException(status_code=400, detail="Invalid product_id")
+        
+        collection = collection_mixnmatch.find_one({"_id": ObjectId(collection_id)})
+        if not collection:
+            raise HTTPException(status_code=404, detail="Collection not found")
+
+        collection_mixnmatch.update_one(
+            {"_id": ObjectId(collection_id)},
+            {"$pull": {"products": {"id": ObjectId(product_id)}}}
+        )
+
+        return {"message": "Product removed from collection successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/mixnmatch/{product_id}")
 async def create_mixnmatch_collection(product_id: str, collection: MixNMatchCreate):
