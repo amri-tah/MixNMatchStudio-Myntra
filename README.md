@@ -63,7 +63,10 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 <div align="center">
    <div style="width: 200px; display: flex;">
   <img src="https://konvajs.org/android-chrome-192x192.png" width="50" />
+   <img src="https://github.com/user-attachments/assets/4505e3a2-4fb0-47ba-8656-ab2d222884ba" width="50"/>
   <img src="https://skillicons.dev/icons?i=react,tailwind,fastapi,pytorch,aws,mongodb,figma">
+      
+
 </div>
 <br>
 <img src="https://github.com/user-attachments/assets/0fd8fe6f-6aea-4a92-9469-2a50aca5cfd4" width="700"/>
