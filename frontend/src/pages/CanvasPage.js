@@ -10,6 +10,7 @@ import heart from "../assets/Heart.png";
 
 const CanvasPage = () => {
   const { id } = useParams();
+  const [copied, setCopied] = useState(false);
   const [collection, setCollection] = useState(null);
   const [images, setImages] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -86,7 +87,6 @@ const CanvasPage = () => {
   };
 
   const handleSave = () => {
-    // Send the updated positions and sizes to the backend
     axios
       .put(`/mixnmatch/${collection.id}/save_positions/`, images)
       .then(() => {
@@ -96,6 +96,17 @@ const CanvasPage = () => {
         console.error("Error saving positions and sizes:", error);
       });
   };
+
+  function copy() {
+    const el = document.createElement("input");
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   const totalPrice = collection
     ? collection.products.reduce((sum, product) => sum + product.price, 0)
@@ -189,9 +200,7 @@ const CanvasPage = () => {
               >
                 SAVE
               </button>
-              <div className="text-lg px-6 py-3 bg-black text-white rounded-lg">
-                SHARE
-              </div>
+              <button className={`text-lg px-6 py-3 rounded-lg ${copied ? "bg-green-500 text-white" : "bg-black text-white"}`} onClick={copy}>{!copied ? "Copy link" : "Copied!"}</button>
             </div>
 
             <p className="font-bold text-2xl">Rs. {totalPrice}</p>
