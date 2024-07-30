@@ -8,6 +8,11 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict
 from fuzzywuzzy import process
 import math
+import requests
+import random
+import logging
+import google.generativeai as genai
+
 
 app = FastAPI()
 
@@ -21,10 +26,14 @@ app.add_middleware(
 
 load_dotenv()
 uri = os.getenv("MONGODB_URI")
+gemini_api_key = os.getenv("GEMINI_API_KEY")
 client = MongoClient(uri)
 db = client.myntra_database
 collection_prod = db.products
 collection_mixnmatch = db.mixnmatch
+
+# Configure Google Generative AI
+genai.configure(api_key=gemini_api_key)
 
 class MixNMatchCreate(BaseModel):
     name: str
@@ -79,6 +88,23 @@ def mixnmatch_helper(collection) -> dict:
         ]
     }
 
+def get_keywords_from_gemini(query: str) -> List[str]:
+    # Configure Google Generative AI with the API key
+    genai.configure(api_key=gemini_api_key)
+    
+    # Define the one-shot prompt
+    prompt = f'''
+    You are a fashion expert. Given a customer's situation, generate keywords related to suitable clothing options for them. For example, if the customer's query is "I want to go to a business conference," the keywords could be "blazer, suit, formal dress." Customer query: "{query}" Keywords:
+    '''
+    
+    # Generate content using the configured model
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    response = model.generate_content([prompt])
+    
+    # Extract the keywords from the response
+    keywords = response.text.strip().split(", ")
+    return keywords
+
 @app.get("/")
 async def hello_world():
     return {"Team":"InnovateHers", "Members": ["Amritha Nandini", "Dharsini Sri", "Shruti Sivakumar"], "Institute": "Amrita Vishwa Vidyapeetham, Coimbatore"}
@@ -98,13 +124,45 @@ async def get_products(query: Optional[str] = Query(None)):
 
 @app.get("/aisearch")
 async def ai_search(query: Optional[str] = Query(None)):
-    products_cursor = collection_prod.find()
-    products = [product_helper(product) for product in products_cursor]
-
-    ### Use Gemini to convert the chat input (query) into 2-3 keywords 
-    ### and feed them one by one into the search_products function
-    products = search_products(query, products)
-    return {"query": products}
+    try:
+        # Print the initial query
+        print(f"Received query: {query}")
+        
+        products_cursor = collection_prod.find()
+        products = [product_helper(product) for product in products_cursor]
+        
+        # Print the total number of products found
+        print(f"Total products found: {len(products)}")
+        
+        if query:
+            # Print before calling the Gemini API
+            print("Calling Gemini API to get keywords...")
+            keywords = get_keywords_from_gemini(query)
+            
+            # Print the received keywords
+            print(f"Keywords received: {keywords}")
+            
+            matched_products = []
+            for keyword in keywords:
+                matched_products.extend(search_products(keyword, products))
+                
+                # Print matched products for each keyword
+                print(f"Matched products for keyword '{keyword}': {matched_products}")
+            
+            # Remove duplicates while preserving order
+            seen = set()
+            products = [p for p in matched_products if p["id"] not in seen and not seen.add(p["id"])]
+            
+            # Print the final matched products after removing duplicates
+            print(f"Final matched products: {products}")
+            
+            return {"keywords": keywords, "products": products}
+        
+        return {"query": products}
+    except Exception as e:
+        # Print the exception if any occurs
+        print(f"Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/products/{product_id}")
 async def get_product_by_id(product_id: str):
