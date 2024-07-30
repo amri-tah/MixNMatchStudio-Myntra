@@ -34,10 +34,10 @@ class MixNMatchCreate(BaseModel):
 
 class ProductPosition(BaseModel):
     id: str
-    x: float
-    y: float
-    width: float
-    height: float
+    x: Optional[float] = 100
+    y: Optional[float] = 100
+    width: Optional[float] = 100
+    height: Optional[float] = 100
 
 def search_products(query: str, products: List[dict], limit: int = 3) -> List[dict]:
     product_names = [product["name"] for product in products]
@@ -149,20 +149,20 @@ async def get_collection_by_id(collection_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.put("/mixnmatch/{collection_id}/add_product/")
-async def add_product_to_collection(collection_id: str, product: ProductPosition):
+@app.put("/mixnmatch/{collection_id}/add_product/{product_id}")
+async def add_product_to_collection(collection_id: str, product_id: str):
     try:
         collection = collection_mixnmatch.find_one({"_id": ObjectId(collection_id)})
         if not collection:
             raise HTTPException(status_code=404, detail="Collection not found")
 
-        product_doc = collection_prod.find_one({"_id": ObjectId(product.id)})
+        product_doc = collection_prod.find_one({"_id": ObjectId(product_id)})
         if not product_doc:
             raise HTTPException(status_code=404, detail="Product not found")
 
         collection_mixnmatch.update_one(
             {"_id": ObjectId(collection_id)},
-            {"$addToSet": {"products": {"id": ObjectId(product.id), "x": math.random()*100, "y": math.random()*100, "width": 100, "height": 100}}}
+            {"$addToSet": {"products": {"id": ObjectId(product_id), "x": 100, "y": 100, "width": 100, "height": 100}}}
         )
 
         return {"message": "Product added to collection successfully"}
@@ -170,8 +170,15 @@ async def add_product_to_collection(collection_id: str, product: ProductPosition
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/mixnmatch/{product_id}")
-async def create_mixnmatch_collection(product_id: str, collection: MixNMatchCreate, product: ProductPosition):
+async def create_mixnmatch_collection(product_id: str, collection: MixNMatchCreate):
     try:
+        if not ObjectId.is_valid(product_id):
+            raise HTTPException(status_code=400, detail="Invalid product_id")
+        
+        product_doc = collection_prod.find_one({"_id": ObjectId(product_id)})
+        if not product_doc:
+            raise HTTPException(status_code=404, detail="Product not found")
+
         new_collection = {
             "name": collection.name,
             "description": collection.description,
@@ -179,13 +186,14 @@ async def create_mixnmatch_collection(product_id: str, collection: MixNMatchCrea
             "cover_img": collection.cover_img,
             "likes": 0,
             "saves": 0,
-            "products": [{"id": ObjectId(product.id), "x": product.x, "y": product.y, "width": product.width, "height": product.height}]
+            "products": [{"id": ObjectId(product_id), "x": 100, "y": 100, "width": 100, "height": 100}]
         }
         result = collection_mixnmatch.insert_one(new_collection)
         created_collection = collection_mixnmatch.find_one({"_id": result.inserted_id})
         return mixnmatch_helper(created_collection)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
     
 @app.put("/mixnmatch/{collection_id}/save_positions/")
 async def save_positions(collection_id: str, products: List[ProductPosition]):
