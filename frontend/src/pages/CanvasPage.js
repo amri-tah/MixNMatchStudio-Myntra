@@ -122,8 +122,19 @@ const CanvasPage = () => {
     }
   };
 
+  const handleAddToMixNMatch = async (product) => {
+    try {
+      await axios.put(`/mixnmatch/${collection.id}/add_product/${product.id}`);
+      const updatedCollection = { ...collection, products: [...collection.products, product] };
+      setCollection(updatedCollection);
+    } catch (error) {
+      console.error("Error adding product to collection:", error);
+    }
+  };
+
   const handleAddImageFromSearch = (product) => {
     handleAddImage(product);
+    handleAddToMixNMatch(product);
     setShowDialog(false);
   };
 
