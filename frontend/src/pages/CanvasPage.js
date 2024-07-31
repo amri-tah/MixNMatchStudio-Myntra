@@ -17,6 +17,7 @@ const CanvasPage = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [suggestions, setSuggestions] = useState('');
   const stageRef = useRef(null);
   const userId = "InnovateHers";
 
@@ -117,7 +118,9 @@ const CanvasPage = () => {
       const response = await axios.get(`/aisearch`, {
         params: { query: searchQuery },
       });
-      setSearchResults(response.data.products);
+      const { keywords, products, suggestions } = response.data;
+      setSearchResults(products);
+      setSuggestions(suggestions);
     } catch (error) {
       console.error("Error searching products:", error);
     }
@@ -293,12 +296,12 @@ const CanvasPage = () => {
 
       {showDialog && (
   <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-    <div className="w-[50vw] h-fit max-h-[600px] mt-20 bg-white flex flex-col gap-2 p-6 rounded-lg">
+    <div className="w-[50vw] h-fit max-h-[600px] mt-20 bg-white flex flex-col gap-1 p-6 rounded-lg">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="font-semibold text-2xl">AI Search</h1>
+        <h1 className="font-semibold text-2xl">AI Search ✨</h1>
         <button onClick={() => setShowDialog(false)} className="text-xl font-bold">&times;</button>
       </div>
-      <form onSubmit={handleSearch} className="flex gap-2 mb-4">
+      <form onSubmit={handleSearch} className="flex gap-2 mb-2">
         <input
           type="text"
           className="p-2 border-2 border-black rounded-lg flex-grow"
@@ -313,6 +316,13 @@ const CanvasPage = () => {
           Search
         </button>
       </form>
+      {suggestions && (
+            <div className="bg-gray-100 p-4 rounded-lg mb-4">
+              <div className="p-2 bg-white rounded-lg border border-gray-300">
+                <p className="text-sm text-gray-700">{suggestions}</p>
+              </div>
+            </div>
+          )}
 
       <div className="overflow-y-auto max-h-96">
         {searchResults.length === 0 ? (
@@ -332,7 +342,7 @@ const CanvasPage = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-bold text-sm">{product.brand}</p>
-                    <h3 className="text-md leading-2 text-gray-600">
+                    <h3 className="text-sm leading-2 text-gray-600">
                       {product.name}
                     </h3>
                     <p className="text-sm font-semibold">Rs. {product.price}</p>

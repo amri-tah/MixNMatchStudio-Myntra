@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Tuple
 from fuzzywuzzy import process
 import math
 import requests
@@ -89,20 +89,29 @@ def mixnmatch_helper(collection) -> dict:
         ]
     }
 
-def get_keywords_from_gemini(query: str) -> List[str]:
+def get_keywords_from_gemini(query: str) -> Tuple[List[str], str]:
     genai.configure(api_key=gemini_api_key)
     
-    prompt = f'''
+    # Prompt to generate keywords
+    keywords_prompt = f'''
     You are a fashion expert. Given a customer's situation, generate five keywords related to suitable clothing options for them. For example, if the customer's query is "I want to go to a business conference," the keywords could be "blazer, suit, formal dress." Customer query: "{query}" Keywords:
+    '''
+    
+    # Prompt to provide chatbot-like suggestions
+    suggestions_prompt = f'''
+    You are a fashion expert. Based on the customer's query, provide some outfit suggestions that could be suitable for their situation. Keep the suggestions short and sweet. Max 2 sentances. For example, if the customer's query is "I want to go to a business conference," you might suggest "a tailored suit, a formal dress, or a blazer with trousers." Customer query: "{query}" Suggestions:
     '''
     
     # Generate content using the configured model
     model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content([prompt])
+    keywords_response = model.generate_content([keywords_prompt])
+    suggestions_response = model.generate_content([suggestions_prompt])
     
-    # Extract the keywords from the response
-    keywords = response.text.strip().split(", ")
-    return keywords
+    # Extract the keywords and suggestions from the responses
+    keywords = keywords_response.text.strip().split(", ")
+    suggestions = suggestions_response.text.strip()
+    
+    return keywords, suggestions
 
 @app.get("/")
 async def hello_world():
@@ -136,7 +145,7 @@ async def ai_search(query: Optional[str] = Query(None)):
         if query:
             # Print before calling the Gemini API
             print("Calling Gemini API to get keywords...")
-            keywords = get_keywords_from_gemini(query)
+            keywords, suggestions = get_keywords_from_gemini(query)
             
             # Print the received keywords
             print(f"Keywords received: {keywords}")
@@ -155,7 +164,7 @@ async def ai_search(query: Optional[str] = Query(None)):
             # Print the final matched products after removing duplicates
             print(f"Final matched products: {products}")
             
-            return {"keywords": keywords, "products": products}
+            return {"keywords": keywords, "suggestions":suggestions, "products": products}
         
         return {"query": products}
     except Exception as e:
