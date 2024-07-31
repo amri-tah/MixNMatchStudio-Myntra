@@ -29,13 +29,16 @@ Traditional retail models are failing to resonate with Gen Z, a critical demogra
 Integrated into the Myntra website, this tool allows users to browse and combine catalog items to visualize complete outfits.
 
 - **Drag and Drop** from catalog to experiment with different outfit combinations.
-- **Visualize outfits** on yourself with generative AI.
+- **Visualize Outfits** with the help of AI, powered by advanced segmentation models in PyTorch for accurate image segmentation.
 - **Save privately**, **Publish publicly**, or **Buy combination directly**.
+- **Search with AI** using the Gemini API to generate relevant keywords and enhance search results.
 - Seamless and interactive shopping experience.
 
 By bridging the visualization gap, customers can see how different items come together, enhancing customer satisfaction and aiding purchase decisions. This feature also highlights hidden gems in our catalog. As users share their unique collections, previously unnoticed clothing items gain visibility and reach.
 
-![image](https://github.com/user-attachments/assets/22e52daf-ce96-4b15-b333-974d7ecb4712)
+![image](https://github.com/user-attachments/assets/76dc63d9-9421-43f1-a36b-14243263b381)
+![image](https://github.com/user-attachments/assets/13f32d7c-5e26-4358-bae8-2d22fb4bc96d)
+
 
 ### Myntra Style Showdown
 ![styleshowdown](https://github.com/user-attachments/assets/952085fa-89b0-4b54-b1f8-6475932b1868)
@@ -69,7 +72,7 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 
 </div>
 <br>
-<img src="https://github.com/user-attachments/assets/0fd8fe6f-6aea-4a92-9469-2a50aca5cfd4" width="700"/>
+<img src="https://github.com/user-attachments/assets/2780186b-4a2e-48e1-8f50-664c5971d373" width="700"/>
 </div>
 
 
@@ -81,16 +84,21 @@ Users foster creativity by designing outfits based on a monthly theme using the 
 - **MongoDB**: Employed to store product details and canvas information, ensuring seamless data management.
 - **AWS S3 Bucket**: Used for storing images securely and ensuring scalable storage solutions.
 - **PyTorch**: Integrated for running the segmentation model, enabling precise and efficient image segmentation.
+- **Gemini API**: Generating keywords to search for specific scenarios, helping to refine search queries and enhance the relevance of search results
 
 ### Segmentation
 The segmentation model utilized in this project is derived from the repository found at https://github.com/oyelmali/Cloth-Semantic-Segmentation . We have customized the model to incorporate separate codes with distinct alpha masks for tops, bottoms, skirts, and coords. Further, we will make sure upon generating the PNG images, we have integrated the code to ensure that these images are automatically uploaded to the segmentation folder within our AWS bucket.
 
 ![image](https://github.com/user-attachments/assets/236964d1-5fcd-4fd7-a85a-8719925de7bb)
 
+## Future Works ✅
 ### Visualisation Using GenAI
 Different clothing and accessories can be visualized as various outfit combinations using GenAI. For this, we will be using the DeepFashion Try-On model and the Dressing-In-Order model. These models allow different pieces of clothing to be visualized on subjects of various skin tones and body types. Layering of clothes and accessories can also be implemented using these models. This provides customers with a sense of personalization and helps them pick suitable products. It also helps reduce the return of products.
 
 ![Unknown](https://github.com/user-attachments/assets/cf7b67dc-256d-43c8-bb4b-63c7391cac48)
+
+### Social Media Integration
+There's a wealth of outfit combinations shared on platforms like Pinterest, but creating these often requires using separate apps. By integrating a canvas feature with Myntra, users can directly visualize and share their outfit creations on social media. This integration keeps users engaged with the Myntra platform, enhancing user retention and driving increased engagement and sales. Users can easily create, visualize, and share their unique outfits without needing to switch between different applications, leading to a more seamless and interactive shopping experience.
 
 ## Screenshots 📸
 ![image](https://github.com/user-attachments/assets/cc8b471c-f45e-4bd8-852c-80844a1e5296)
@@ -98,7 +106,11 @@ Different clothing and accessories can be visualized as various outfit combinati
 
 ![image](https://github.com/user-attachments/assets/13cb2226-9553-4584-a4a3-55949f8cfcf1)
 ![image](https://github.com/user-attachments/assets/5a7cfc21-dc43-4376-9507-c9dc5f79c6b4)
-![image](https://github.com/user-attachments/assets/8212d183-40d2-4e03-8649-39921f093085)
+![image](https://github.com/user-attachments/assets/55c8a716-cd91-43a6-a1c6-a79131b448da)
+
+![image](https://github.com/user-attachments/assets/13f32d7c-5e26-4358-bae8-2d22fb4bc96d)
+
+![image](https://github.com/user-attachments/assets/c1655856-90a3-4c5b-9563-b2a7bc274b8c)
 ![image](https://github.com/user-attachments/assets/f4aa6ca1-bfac-47f0-b3f2-15338fdad525)
 ![image](https://github.com/user-attachments/assets/587e1c07-3c2f-4eae-96d5-6a2a85d0eef3)
 
@@ -116,5 +128,6 @@ Different clothing and accessories can be visualized as various outfit combinati
 </table>
 
 ## References 📚
+- Konva: [https://konvajs.org/docs/index.html](https://konvajs.org/docs/index.html)
 - Segmentation model: [https://github.com/oyelmali/Cloth-Semantic-Segmentation](https://github.com/oyelmali/Cloth-Semantic-Segmentation)
 - DeepFashion Try On Model: [https://github.com/switchablenorms/DeepFashion_Try_On](https://github.com/switchablenorms/DeepFashion_Try_On)
