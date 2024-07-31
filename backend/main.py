@@ -31,6 +31,7 @@ client = MongoClient(uri)
 db = client.myntra_database
 collection_prod = db.products
 collection_mixnmatch = db.mixnmatch
+collection_cart = db.cart
 
 # Configure Google Generative AI
 genai.configure(api_key=gemini_api_key)
@@ -298,8 +299,42 @@ async def save_positions(collection_id: str, products: List[ProductPosition]):
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/cart/{user_id}/{collection_id}")
+async def add_collection_to_cart(collection_id: str, user_id: str):
+    try:
+        if not ObjectId.is_valid(collection_id):
+            raise HTTPException(status_code=400, detail="Invalid collection_id")
 
+        collection = collection_mixnmatch.find_one({"_id": ObjectId(collection_id)})
+        if not collection:
+            raise HTTPException(status_code=404, detail="Collection not found")
 
+        product_ids = [ObjectId(prod["id"]) for prod in collection["products"]]
+        products = collection_prod.find({"_id": {"$in": product_ids}})
+        cart_items = [product_helper(product) for product in products]
+
+        for item in cart_items:
+            collection_cart.update_one(
+                {"user_id": user_id},
+                {"$addToSet": {"items": item}},
+                upsert=True
+            )
+
+        return {"message": "Products from collection added to cart successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/cart/{user_id}")
+async def get_cart(user_id: str):
+    try:
+        cart = collection_cart.find_one({"user_id": user_id})
+        if not cart:
+            return {"items": []}
+        return {"items": cart.get("items", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     import uvicorn

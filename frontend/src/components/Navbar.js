@@ -8,7 +8,7 @@ import profile from '../assets/User.png';
 import search from '../assets/search.png'
 
 const navItems = [
-  { icon: cart, text: 'Cart', link: '/' },
+  { icon: cart, text: 'Cart', link: '/cart' },
   { icon: canvas, text: 'Canvas', link: '/' },
   { icon: heart, text: 'Wishlist', link: '/wishlist' },
   { icon: profile, text: 'Profile', link: '/profile' },

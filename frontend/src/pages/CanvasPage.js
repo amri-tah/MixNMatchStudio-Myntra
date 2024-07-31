@@ -18,6 +18,7 @@ const CanvasPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const stageRef = useRef(null);
+  const userId = "InnovateHers";
 
   useEffect(() => {
     const fetchCollectionDetails = async () => {
@@ -75,7 +76,7 @@ const CanvasPage = () => {
     const updatedImages = images.filter((image) => image.id !== id);
     setImages(updatedImages);
   };
-
+  
   const handleAddImage = (product) => {
     const newImage = {
       id: product.id,
@@ -146,6 +147,21 @@ const CanvasPage = () => {
       handleRemoveImage(productId);
     } catch (error) {
       console.error("Error deleting product:", error);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    if (!collection || !userId) {
+      alert('Collection or User ID is missing');
+      return;
+    }
+
+    try {
+      const response = await axios.post(`/cart/${userId}/${collection.id}`, { user_id: userId });
+      alert(response.data.message);
+    } catch (error) {
+      console.error('Error adding collection to cart:', error.response?.data || error.message);
+      alert('Failed to add collection to cart');
     }
   };
 
@@ -268,7 +284,7 @@ const CanvasPage = () => {
               </div>
             </div>
 
-            <button className="w-fit px-5 py-3 rounded-lg bg-[#FF3F6C] text-white font-semibold text-lg">
+            <button className="w-fit px-5 py-3 rounded-lg bg-[#FF3F6C] text-white font-semibold text-lg" onClick={handleAddToCart}>
               ADD TO BAG
             </button>
           </div>
@@ -277,7 +293,7 @@ const CanvasPage = () => {
 
       {showDialog && (
   <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-    <div className="w-[60vw] h-fit max-h-[600px] mt-20 bg-white flex flex-col gap-2 p-6 rounded-lg">
+    <div className="w-[50vw] h-fit max-h-[600px] mt-20 bg-white flex flex-col gap-2 p-6 rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h1 className="font-semibold text-2xl">AI Search</h1>
         <button onClick={() => setShowDialog(false)} className="text-xl font-bold">&times;</button>
@@ -323,9 +339,9 @@ const CanvasPage = () => {
                   </div>
                   <button
                     onClick={() => handleAddImageFromSearch(product)}
-                    className="w-[60px] p-1 m-1 h-fit bg-[#FF3F6C] text-white rounded-full"
+                    className="w-[60px] p-1 m-1 h-fit bg-[#FF3F6C] text-white rounded-xl"
                   >
-                    +
+                    ADD
                   </button>
                 </div>
               </div>

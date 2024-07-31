@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import StyleShowdown from './pages/StyleShowdown';
 import ProductDetails from './pages/ProductDetails';
 import Canvas from './pages/CanvasPage';
+import Cart from './pages/Cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +29,7 @@ root.render(
           <Route path="/mixnmatch" element={<MixNMatch />} />
           <Route path="/styleshowdown" element={<StyleShowdown />} />
           <Route path="/search" element={<Catalog />} />
+          <Route path="/cart" element={<Cart />} />
           
         </Route>
       </Routes>
