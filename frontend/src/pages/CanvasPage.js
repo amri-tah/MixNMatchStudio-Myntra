@@ -298,17 +298,16 @@ const CanvasPage = () => {
   <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
     <div className="w-[50vw] h-fit max-h-[600px] mt-20 bg-white flex flex-col gap-1 p-6 rounded-lg">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="font-semibold text-2xl">AI Search ✨</h1>
+        <h1 className="font-semibold text-2xl text-center">AI Search ✨</h1>
         <button onClick={() => setShowDialog(false)} className="text-xl font-bold">&times;</button>
       </div>
       <form onSubmit={handleSearch} className="flex gap-2 mb-2">
-        <input
-          type="text"
-          className="p-2 border-2 border-black rounded-lg flex-grow"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Casual Day Out"
-        />
+      <textarea
+        className="p-2 border-2 border-black rounded-lg flex-grow"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Casual Day Out"
+      />
         <button
           type="submit"
           className="px-4 py-2 bg-[#FF3F6C] text-white rounded-lg"

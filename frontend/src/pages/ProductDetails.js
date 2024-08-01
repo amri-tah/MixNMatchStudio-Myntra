@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { cloneElement, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import bag from '../assets/bag.png';
@@ -49,6 +49,7 @@ const ProductDetails = () => {
           });
           alert('Product added to existing collection');
         } else {
+          
           console.error('Selected collection not found');
         }
       } catch (error) {
