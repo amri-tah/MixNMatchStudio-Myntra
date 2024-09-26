@@ -1,6 +1,5 @@
 ![start](https://github.com/user-attachments/assets/00b684fd-adb0-4e7a-9124-d311a09d9b97)
 <div align="center">
-   <a href="https://www.canva.com/design/DAGIr4NWacs/Btm7QaY3T82euLjr0PeOyw/view?utm_content=DAGIr4NWacs&utm_campaign=designshare&utm_medium=link&utm_source=editor" target="_blank">Canva Presentation 🎨</a> |
    <a href="https://www.figma.com/proto/milkChhGO0yHKmKAgWtEIt/WeForShe24-InnovateHers?node-id=192-16&t=DOtBIIz6m957XMcQ-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1" target="_blank">Figma Prototype 🖌️</a>
 </div>
 
